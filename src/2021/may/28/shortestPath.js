@@ -12,7 +12,6 @@ function shortestPath(strArr) {
     paths.push(getTo(paths[i]) + "-" + getFrom(paths[i]));
   }
   var routes = recurse(map, paths, map[0]);
-  //console.log(routes);
   if (routes.length > 0) {
     return routes[getMinPath(routes)];
   }
@@ -35,10 +34,8 @@ function recurse(map, paths, current) {
       let newPaths = [...paths];
       newPaths.splice(i, 1);
       const furtherRoutes = recurse(map, newPaths, getTo(paths[i]));
-      //console.log(furtherRoutes);
       for (let j = 0; j < furtherRoutes.length; ++j) {
         if (furtherRoutes[j] !== -1) {
-          //console.log(furtherRoutes[j]);
           routes.push(getFrom(paths[i]) + "-" + furtherRoutes[j]);
         }
       }
@@ -72,7 +69,5 @@ function getMinPath(routes) {
   }
   return minIndex;
 }
-
-//console.log(shortestPath(["3", "A", "B", "C", "B-C", "A-B"]));
 
 module.exports = shortestPath;
