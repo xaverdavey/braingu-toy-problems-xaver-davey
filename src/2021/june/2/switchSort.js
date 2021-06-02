@@ -5,8 +5,47 @@
 // The array arr will at most contain five elements and will contain at least two elements.
 
 function switchSort(arr) {
-  // code goes here
-  return arr;
+  let count = 0;
+  while (!isSorted(arr)) {
+    for (let i = 1; i < arr.length; ++i) {
+      if (arr[i - 1] != i) {
+        const focusIndex = findIndex(arr, i);
+        if (mod(focusIndex - i, arr.length) == i - 1 || mod(focusIndex + i, arr.length) == i - 1) {
+          count += swapAndCount(arr, i - 1, focusIndex);
+        }
+      }
+    }
+  }
+  return count;
+}
+
+
+function swapAndCount(arr, i1, i2) {
+  const temp = arr[i1];
+  arr[i1] = arr[i2];
+  arr[i2] = temp;
+  return 1;
+}
+
+function findIndex(arr, value) {
+  for (let i = 0; i < arr.length; ++i) {
+    if (arr[i] === value) {
+      return i;
+    }
+  }
+}
+
+function mod(a, b) {
+  return ((a % b) + b) % b;
+}
+
+function isSorted(a) {
+  for (let i = 0; i < a.length; ++i) {
+    if (a[i] != i + 1) {
+      return false;
+    }
+  }
+  return true;
 }
 
 module.exports = switchSort;
